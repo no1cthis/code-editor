@@ -1,0 +1,2 @@
+(self.webpackChunkcode_editor=self.webpackChunkcode_editor||[]).push([[31845],{31845:function(){Prism.languages.brainfuck={pointer:{pattern:/<|>/,alias:"keyword"},increment:{pattern:/\+/,alias:"inserted"},decrement:{pattern:/-/,alias:"deleted"},branching:{pattern:/\[|\]/,alias:"important"},operator:/[.,]/,comment:/\S+/}}}]);
+//# sourceMappingURL=31845.fd3e019f.chunk.js.map

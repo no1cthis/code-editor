@@ -1,0 +1,2 @@
+(self.webpackChunkcode_editor=self.webpackChunkcode_editor||[]).push([[66259],{66259:function(){Prism.languages.arff={comment:/%.*/,string:{pattern:/(["'])(?:\\.|(?!\1)[^\\\r\n])*\1/,greedy:!0},keyword:/@(?:attribute|data|end|relation)\b/i,number:/\b\d+(?:\.\d+)?\b/,punctuation:/[{},]/}}}]);
+//# sourceMappingURL=66259.a1cd8622.chunk.js.map
