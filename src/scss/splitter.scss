@@ -1,0 +1,43 @@
+@import './var.scss';
+
+.react-resizable-handle.react-resizable-handle-se{
+    position: relative;
+    height: 4px;
+    background-color: $bg-color; 
+    display: block;
+    cursor: s-resize;
+
+    &:hover::after{
+            background-color: $secondary-color;
+    }
+    &:active::after{
+        background-color: $primary-color;//#1D2025;
+    }
+    &::after{
+        content: '';
+        position: absolute;
+        top:calc(50% - 1px);
+        left:0;
+        height: 2px;
+        width: 100%;
+        background-color: #ABB2BF;
+    }
+} 
+
+.react-split{
+    height: calc(100% - 10px) !important;
+}
+
+.default-splitter{
+
+    --default-splitter-line-color: #183153 !important;
+    --default-splitter-line-hover-color: $secondary-color !important;
+}
+.line{
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.react-split > .split-container > .splitter .default-splitter:hover > .line{
+    background-color: $secondary-color !important;
+}

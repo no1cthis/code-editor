@@ -1,0 +1,17 @@
+@import '../../scss/var.scss';
+.wrapper{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    top:0;
+    right: 0;
+    z-index: 100;
+}
+.btn{
+    @include button;
+    width: 30px;
+    height: 30px;
+    margin: 0 1px;
+
+}

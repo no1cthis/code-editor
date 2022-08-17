@@ -1,0 +1,40 @@
+@import './var.scss';
+textarea.w-md-editor-text-input{
+    background-color: $bg-text-editor;
+    color: $letter-color;
+    -webkit-text-fill-color: #ccc;
+}
+pre .w-md-editor-text-pre .wmde-markdown-color{
+    color: $letter-color
+}
+.wmde-markdown-color{
+    color:$letter-color
+}
+.w-md-editor-preview{
+    background-color: $bg-text-editor;
+}
+.w-md-editor-text{
+    color:$letter-color
+}
+.w-md-editor-toolbar{
+    background-color: $bg-text-editor !important; 
+}
+.w-md-editor{
+    background-color: $bg-text-editor !important;
+    position: relative;
+}
+.w-md-editor-bar{
+    position: absolute;
+    width: 100% !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: $letter-color;
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius:10px !important;
+
+    &:active{
+        background-color: $secondary-color
+    }
+}
