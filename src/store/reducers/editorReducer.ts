@@ -46,9 +46,9 @@ App coded on Typescript + Redux
     import "bulma/css/bulma.css";
     
     const Test = () => (
-      <section class="section">
-        <h1 class="title">{"Hey, It's working!"}</h1>
-        <h2 class="subtitle">
+      <section className="section">
+        <h1 className="title">{"Hey, It's working!"}</h1>
+        <h2 className="subtitle">
           <strong>CSS </strong>
           working too!
         </h2>
