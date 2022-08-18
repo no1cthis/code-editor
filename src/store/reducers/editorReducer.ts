@@ -34,7 +34,7 @@ App coded on Typescript + Redux
   const initCode:Editor ={
     id: 'initCode',
     type: 'code',
-    content: `import React from "react";
+    content: `    import React from "react";
     import ReactDOM from "react-dom/client";
     import "bulma/css/bulma.css";
     
