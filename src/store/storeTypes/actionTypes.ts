@@ -4,5 +4,6 @@ export enum ActionType{
     INSERT_CELL_AFTER       = 'insert_cell_after',
     UPDATE_CELL             = 'update_cell',
     BUNDLE_START            = 'bundle_start',
-    BUNDLE_FINISH           = 'bundle_finish'
+    BUNDLE_FINISH           = 'bundle_finish',
+    REPLACE_STORE           = 'replace_store'
 }

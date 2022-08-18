@@ -1,4 +1,4 @@
-import { EditorType } from "../../types/Types";
+import { Editor, EditorType } from "../../types/Types";
 import { ActionType } from "../storeTypes/actionTypes";
 import { Direction } from "../storeTypes/storeTypes";
 
@@ -48,6 +48,16 @@ export interface BundleFinishAction{
     }
 }
 
+export interface ReplaceStoreAction{
+    type: ActionType.REPLACE_STORE,
+    payload: {
+        order: string[],
+        data: {
+            [key: string]: Editor;
+          };
+    }
+}
+
 export type Action =
 | MoveCellAction
 | DeleteCellAction
@@ -55,3 +65,4 @@ export type Action =
 | UpdateCellAction
 | BundleStartAction
 | BundleFinishAction
+| ReplaceStoreAction

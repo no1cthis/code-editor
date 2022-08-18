@@ -26,7 +26,7 @@ const EditorList: React.FC = () =>{
     const visionAlways = editors.length === 0 ? true : false
 
     return  <div>
-                <AddEditor  visionAlways={visionAlways} idPrev={null}/>
+                <AddEditor  visionAlways={true} idPrev={null} allowExport/>
                 {[...formattedEditors]}
             </div>
 }

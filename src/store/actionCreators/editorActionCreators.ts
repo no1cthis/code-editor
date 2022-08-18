@@ -1,6 +1,6 @@
 import { ActionType } from "../storeTypes/actionTypes";
-import { DeleteCellAction, InsertCellAfterAction, MoveCellAction, UpdateCellAction } from "../actions/action";
-import { EditorType } from "../../types/Types";
+import { DeleteCellAction, InsertCellAfterAction, MoveCellAction, ReplaceStoreAction, UpdateCellAction } from "../actions/action";
+import { Editor, EditorType } from "../../types/Types";
 import { Direction } from "../storeTypes/storeTypes";
 
 export const updateCell = (id:string, content:string):UpdateCellAction => {
@@ -40,6 +40,16 @@ export const moveCell = (id: string, direction: Direction ):MoveCellAction => {
         payload:{
             id,
             direction
+        }
+    }
+}
+
+export const replaceStore = (data: {[key: string]: Editor}, order: string[]): ReplaceStoreAction => {
+    return {
+        type:ActionType.REPLACE_STORE,
+        payload: {
+            order,
+            data
         }
     }
 }

@@ -1,18 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 import { useAction } from "../../hooks/useAction";
+import { useExport } from "../../hooks/useExport";
+import { useImport } from "../../hooks/useImport";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 import cl from './addEditor.module.scss'
 
 interface AddEditorProps {
-    idPrev: string | null
-    visionAlways?: boolean;
+    idPrev: string | null,
+    visionAlways?: boolean,
+    allowExport?: boolean
 }
  
-const AddEditor: React.FC<AddEditorProps> = ({idPrev, visionAlways}) => {
+const AddEditor: React.FC<AddEditorProps> = ({idPrev, visionAlways, allowExport}) => {
     const [noDelay, setNoDelay] = useState(false)
-    const {insertCellAfter} = useAction()
+    const {insertCellAfter, replaceStore} = useAction()
+    const importBtn = useRef<HTMLInputElement>(null)
    
-    
+    const downloadStore = useTypedSelector(store => {
+        const tempStore:{data:{}, order: string[]} = {data:{}, order: []}
+        tempStore.data = store.editors.data
+        tempStore.order = store.editors.order
+        return tempStore
+    })
 
+    const exportStore = useExport(downloadStore)
+    const importStore = useImport(replaceStore)
    
     return ( 
         <div className={cl.wrapper}
@@ -24,17 +36,35 @@ const AddEditor: React.FC<AddEditorProps> = ({idPrev, visionAlways}) => {
         onMouseLeave = {() => setNoDelay(false)}
         >
             <button  
-            className={`addEditor${idPrev} ${cl.btn} ${visionAlways && cl.visionAlways} ${noDelay && cl.noDelay}`} 
+            className={`addEditor${idPrev} ${cl.btn} ${visionAlways && cl.visionAlways} ${(noDelay || visionAlways) && cl.noDelay}`} 
             onClick={() => {insertCellAfter(idPrev, 'code')}}
             >
                 Add Code
             </button>
             <button 
-            className={`addEditor ${cl.btn} ${visionAlways && cl.visionAlways} ${noDelay && cl.noDelay}`} 
+            className={`addEditor ${cl.btn} ${visionAlways && cl.visionAlways} ${(noDelay || visionAlways) && cl.noDelay}`} 
             onClick={() => {insertCellAfter(idPrev, 'text')}}
             >
                 Add Text
             </button>
+
+            {allowExport && 
+            <>
+            <button  
+            className={`addEditor${idPrev} ${cl.btn} ${visionAlways && cl.visionAlways} ${(noDelay || visionAlways) && cl.noDelay}`} 
+            onClick={exportStore}
+            >
+                Export
+            </button>
+            <button  
+            className={`addEditor${idPrev} ${cl.btn} ${visionAlways && cl.visionAlways} ${(noDelay || visionAlways) && cl.noDelay}`} 
+            onClick={() => {importBtn.current?.click()}}
+            >
+                Import
+            </button>
+
+            <input ref={importBtn} type="file" onChange={e => importStore(e)} style={{display:"none"}}/>
+            </>}
         </div>
      );
 }

@@ -18,12 +18,14 @@ export const fetchPlugin = (inputCode:string) =>{
               };
         })
 
-    build.onLoad({ filter: /\*/ }, async (args: any) => {
+      build.onLoad({ filter: /\**/ }, async (args: any) => {
         //check if we already fetched this file and if it's cached
-        const chachedResult = await localforage.getItem<esbuild.OnLoadResult>(args.path)
+        const chachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path)
         // if true - return immediatly 
-        if(chachedResult)
-            return chachedResult
+        if(chachedResult){
+          return chachedResult
+        }
+            
         return null
     })
     build.onLoad({ filter: /.css$/ }, async (args: any) => {

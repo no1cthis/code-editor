@@ -18,6 +18,9 @@ interface CodeCellProps{
 
 const CodeCell:React.FC<CodeCellProps> = ({editor}) => {
  
+  const state = useTypedSelector(state => state)
+  // console.log(JSON.stringify(state))
+
   const bundle = useTypedSelector(state => state.bundle[editor.id])
 
   const code = useMergeCode(editor.id)
