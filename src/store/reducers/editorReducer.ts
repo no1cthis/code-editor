@@ -60,7 +60,7 @@ App coded on Typescript + Redux
     },
   };
 
-export const cellReducer = (state:EditorState = initialState, action: Action): EditorState => {
+export const editorReducer = (state:EditorState = initialState, action: Action): EditorState => {
     const tempState = {...state}
        switch(action.type){
         case ActionType.INSERT_CELL_AFTER:
