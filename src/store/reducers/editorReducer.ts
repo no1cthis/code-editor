@@ -18,6 +18,8 @@ interface EditorState {
     content: `
 ## This demo version of my code-editor-app with minimum functionality
 
+**Use func show(value) for display.**
+
 You can hover at top of the page or under editor to add a new one or just delete all to see buttons.
 
 - Click text to edit
@@ -28,8 +30,13 @@ You can hover at top of the page or under editor to add a new one or just delete
 
 Code editor it's MonacoEditor,  Text editor - MDEditor
 
-App coded on Typescript + Redux
+App coded on Typescript + Redux    
 `
+  }
+  const initText2:Editor ={
+    id: 'initText2',
+    type: 'text',
+    content: `## Variables are shareable.  **Use show just once!** `
   }
   const initCode:Editor ={
     id: 'initCode',
@@ -38,8 +45,7 @@ App coded on Typescript + Redux
     import ReactDOM from "react-dom/client";
     import "bulma/css/bulma.css";
     
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(
+    const Test = () => (
       <section class="section">
         <h1 class="title">{"Hey, It's working!"}</h1>
         <h2 class="subtitle">
@@ -47,16 +53,28 @@ App coded on Typescript + Redux
           working too!
         </h2>
       </section>
-    );
+    )
+
+    show(<Test/>)
+          
+    const text = <h1 className="title">{'Text from previous editor'}</h1>; `
+  }
+  const initCode2:Editor ={
+    id: 'initCode2',
+    type: 'code',
+    content: `
+    show(text)
       `
   }
   const initialState = {
     loading: false,
     error: null,
-    order: ['initText', 'initCode'],
+    order: ['initText', 'initCode', 'initText2', 'initCode2'],
     data: {
         initText,
-        initCode
+        initCode,
+        initText2,
+        initCode2
     },
   };
 

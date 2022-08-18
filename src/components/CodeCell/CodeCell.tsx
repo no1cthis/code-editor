@@ -14,15 +14,14 @@ import Preview from './CodePreview/Preview';
 interface CodeCellProps{
   editor:Editor
 }
+// `import _React from "react";
+// import _ReactDOM from "react-dom";`
 
 const CodeCell:React.FC<CodeCellProps> = ({editor}) => {
-
-  const bundle = useTypedSelector(state => state.bundle[editor.id])
-  const finishCode =
-  `import _React from "react";
-  import _ReactDOM from "react-dom";
-
-  const show = (value) => {
+  const showFunc =
+  `;import _React from "react";
+    import _ReactDOM from "react-dom";
+    var show = (value) => {
     const root = document.querySelector('#root')
     if(value.$$typeof)
         _ReactDOM.render(value, root)
@@ -31,23 +30,44 @@ const CodeCell:React.FC<CodeCellProps> = ({editor}) => {
     else
       root.innerHTML = value
   }
-   ` + editor.content
+   `
+   const showFuncEmpty = `var show = (value) => {};`
+  const bundle = useTypedSelector(state => state.bundle[editor.id])
 
-   
-  console.log(editor.content)
+
+  const code = useTypedSelector(state => {
+    const {data, order, } = state.editors
+    let code=''
+        for(let i = 0; i< order.length; i++)
+        {
+          if(data[order[i]].type === 'code'){ 
+              if(data[order[i]].id === editor.id){
+                code += (showFunc + data[order[i]].content)
+                break;
+              }
+              else {
+                code += (showFuncEmpty + data[order[i]].content)
+              }
+          }
+              
+        }
+
+    return code
+  })
+ 
   const { updateCell, bundling } = useAction()
 
   useEffect(()=>{
     if(!bundle){
-      bundling(editor.id, finishCode)
+      bundling(editor.id, code)
       return
     }
     const timer = setTimeout(async () => {
-      bundling(editor.id, finishCode)
+      bundling(editor.id, code)
   }, 1500) 
 
   return () => clearTimeout(timer)
-  }, [editor.content])
+  }, [code])
   return (
      <div style={{position: 'relative'}}> 
       <ActionBar id = {editor.id}/>
