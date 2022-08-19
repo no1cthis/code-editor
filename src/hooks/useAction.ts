@@ -1,9 +1,11 @@
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreators } from "../store/exportsStore";
+import { bundling } from "../store/reducers/bundleActionCreators";
+import { bundleSlice } from "../store/reducers/bundleSlice";
+import { editorSlice } from "../store/reducers/editorSlice";
 
 
 export const useAction = () =>{
     const dispatch = useDispatch();
-    return bindActionCreators(actionCreators, dispatch)
+    return bindActionCreators({...bundleSlice.actions, ...editorSlice.actions, bundling}, dispatch)
 }

@@ -1,11 +1,9 @@
 import { combineReducers } from "redux";
-import { bundleReducer } from "./bundleReducer";
-import { editorReducer } from "./editorReducer";
+import { bundleSlice } from "./bundleSlice";
+import { editorSlice } from "./editorSlice";
 
 
 export const rootReducer = combineReducers({
-    editors: editorReducer,
-    bundle: bundleReducer
+    editors: editorSlice.reducer,
+    bundle: bundleSlice.reducer
 })
-
-export type RootReducer = ReturnType<typeof rootReducer>

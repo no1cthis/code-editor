@@ -1,9 +1,11 @@
-export enum ActionType{
-    MOVE_CELL               = 'move_cell',
-    DELETE_CELL             = 'delete_cell',
-    INSERT_CELL_AFTER       = 'insert_cell_after',
-    UPDATE_CELL             = 'update_cell',
-    BUNDLE_START            = 'bundle_start',
-    BUNDLE_FINISH           = 'bundle_finish',
-    REPLACE_STORE           = 'replace_store'
+import { Editor } from "../../types/Types";
+
+export interface ReplaceStoreAction{
+    type: string,
+    payload: {
+        order: string[],
+        data: {
+            [key: string]: Editor;
+          };
+    }
 }

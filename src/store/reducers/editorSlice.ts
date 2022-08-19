@@ -1,7 +1,8 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid'
-import { Editor } from '../../types/Types'
-import {Action} from '../actions/action'
-import { ActionType } from '../storeTypes/actionTypes'
+import { Editor, EditorType } from '../../types/Types'
+// import {Action} from '../actions/action'
+import { Direction } from '../storeTypes/storeTypes';
 
 
 interface EditorState {
@@ -67,7 +68,7 @@ App coded on Typescript + Redux
     show(text)
       `
   }
-  const initialState = {
+  const initialState:EditorState = {
     loading: false,
     error: null,
     order: ['initText', 'initCode', 'initText2', 'initCode2'],
@@ -79,57 +80,54 @@ App coded on Typescript + Redux
     },
   };
 
-export const editorReducer = (state:EditorState = initialState, action: Action): EditorState => {
-    const tempState = {...state}
-       switch(action.type){
-        case ActionType.INSERT_CELL_AFTER:
-            
+
+export const editorSlice = createSlice({
+    name: 'editor',
+    initialState,
+    reducers: {
+        updateEditor(state:EditorState, action: PayloadAction<{id:string, content:string}>){
+            const {id, content} = action.payload
+            state.data[id].content = content
+        },
+        insertEditorAfter(state:EditorState, action: PayloadAction<{id:string|null, type:EditorType}>){
+            const {id, type} = action.payload
+
             const editor:Editor = {
-                type: action.payload.type,
-                content: action.payload.content,
+                type: type,
+                content: '',
                 id: nanoid()
             }
 
-            tempState.data[editor.id] = editor
+            state.data[editor.id] = editor
 
-            const ind = tempState.order.findIndex(id => id === action.payload.id)
+            const ind = state.order.findIndex(idInArray => idInArray === id)
             if(ind<0)
-                tempState.order.unshift(editor.id)
+                state.order.unshift(editor.id)
             else
-                tempState.order.splice(ind+1, 0, editor.id);
+                state.order.splice(ind+1, 0, editor.id);
+        },
+        deleteEditor(state:EditorState, action:PayloadAction<string>){
+            const id = action.payload
 
-            return tempState
-
-        case ActionType.DELETE_CELL:
- 
-            delete tempState.data[action.payload];
-            tempState.order = tempState.order.filter(id => id!==action.payload)
-
-            return tempState
-
-        case ActionType.MOVE_CELL:
-            const {direction} = action.payload;
+            delete state.data[id];
+            state.order = state.order.filter(idInArray => idInArray!==id)
+        },
+        moveEditor(state:EditorState, action: PayloadAction<{id: string, direction: Direction }>){
+            const {direction, id} = action.payload;
             const index = state.order.findIndex(id => id === action.payload.id)
             const newIndex = direction === 'up' ? index - 1 : index + 1
 
             if(newIndex < 0 || newIndex > state.order.length-1)
-            return tempState
+             return
 
-            tempState.order[index] = state.order[newIndex]
-            tempState.order[newIndex] = action.payload.id
-
-            return tempState
-
-        case ActionType.UPDATE_CELL:
-            tempState.data[action.payload.id].content = action.payload.content
-
-            return tempState
-        case ActionType.REPLACE_STORE:
-            tempState.data = action.payload.data
-            tempState.order = action.payload.order
-
-            return tempState
-        default:
-            return tempState
+            state.order[index] = state.order[newIndex]
+            state.order[newIndex] = id
+        },
+        replaceStore(state:EditorState, action:PayloadAction<{data: {[key: string]: Editor}, order: string[]}>){
+            state.data = action.payload.data
+            state.order = action.payload.order
+        }
     }
-}
+})
+
+export const editorSliceAction = editorSlice.actions

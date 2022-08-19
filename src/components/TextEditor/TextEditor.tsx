@@ -12,7 +12,7 @@ const TextEditor:React.FC<TextEditorProps> = ({editor}) => {
     const [editing, setEditing] = useState(false)
     const editorRef = useRef<HTMLDivElement>(null)
 
-    const { updateCell} = useAction()
+    const { updateEditor} = useAction()
     useEffect(()=>{
         const offEditing = (e:MouseEvent) => {
             if(editorRef.current && e.target && editorRef.current.contains(e.target as Node)){
@@ -31,7 +31,7 @@ const TextEditor:React.FC<TextEditorProps> = ({editor}) => {
 
     const component =  editing 
                         ?   (<div ref={editorRef}>
-                                <MDEditor value = {editor.content} onChange={(text) => updateCell(editor.id, (text || ''))}/>
+                                <MDEditor value = {editor.content} onChange={(text) => updateEditor({id: editor.id, content: (text || '')})}/>
                             </div>)
                         :   ( <div onClick={() => setEditing(true)}>
                                 <MDEditor.Markdown source={editor.content  || '# Click to edit this'}/>

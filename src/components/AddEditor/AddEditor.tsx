@@ -13,7 +13,7 @@ interface AddEditorProps {
  
 const AddEditor: React.FC<AddEditorProps> = ({idPrev, visionAlways, allowExport}) => {
     const [noDelay, setNoDelay] = useState(false)
-    const {insertCellAfter, replaceStore} = useAction()
+    const {insertEditorAfter, replaceStore} = useAction()
     const importBtn = useRef<HTMLInputElement>(null)
    
     const downloadStore = useTypedSelector(store => {
@@ -24,6 +24,7 @@ const AddEditor: React.FC<AddEditorProps> = ({idPrev, visionAlways, allowExport}
     })
 
     const exportStore = useExport(downloadStore)
+    //@ts-ignore
     const importStore = useImport(replaceStore)
    
     return ( 
@@ -37,13 +38,13 @@ const AddEditor: React.FC<AddEditorProps> = ({idPrev, visionAlways, allowExport}
         >
             <button  
             className={`addEditor${idPrev} ${cl.btn} ${visionAlways && cl.visionAlways} ${(noDelay || visionAlways) && cl.noDelay}`} 
-            onClick={() => {insertCellAfter(idPrev, 'code')}}
+            onClick={() => {insertEditorAfter({id: idPrev, type: 'code'})}}
             >
                 Add Code
             </button>
             <button 
             className={`addEditor ${cl.btn} ${visionAlways && cl.visionAlways} ${(noDelay || visionAlways) && cl.noDelay}`} 
-            onClick={() => {insertCellAfter(idPrev, 'text')}}
+            onClick={() => {insertEditorAfter({id: idPrev, type: 'text'})}}
             >
                 Add Text
             </button>

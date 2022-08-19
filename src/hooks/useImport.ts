@@ -1,10 +1,11 @@
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import React from "react"
-import { ReplaceStoreAction } from "../store/exportsStore";
+import { ReplaceStoreAction } from "../store/storeTypes/actionTypes";
 import { Editor } from "../types/Types";
 
 
 
-export const useImport = (replaceStore:(data: {[key: string]: Editor;}, order: string[]) => ReplaceStoreAction) => 
+export const useImport = (replaceStore:(store:{data: {[key: string]: Editor;}, order: string[]}) => ReplaceStoreAction) => 
 (e:React.ChangeEvent<HTMLInputElement>) => {
         let files = e.target.files
         console.log(files)
@@ -17,7 +18,7 @@ export const useImport = (replaceStore:(data: {[key: string]: Editor;}, order: s
                 //@ts-ignore
                 const importedStore = JSON.parse(e.target?.result)
                 if(importedStore.data && importedStore.order)
-                    replaceStore(importedStore.data, importedStore.order)
+                    replaceStore(importedStore)
                 else 
                     alert('IMPORT FAILED: Invalid file')
             }                    

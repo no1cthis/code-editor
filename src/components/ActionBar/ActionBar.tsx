@@ -1,6 +1,6 @@
 import { useAction } from "../../hooks/useAction";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDown, faArrowUp, faMinus } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown, faArrowUp, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import cl from './ActionBar.module.scss'
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -18,13 +18,13 @@ const ActionBar: React.FC<ActionBarProps> = ({id}) => {
             return 'down'
         return null
     })
-    const {deleteCell, moveCell} = useAction()
+    const {deleteEditor, moveEditor} = useAction()
     return ( 
         <div className={cl.wrapper}>
             
-            {inactive != 'up' &&    <button className={cl.btn} onClick={() => {moveCell(id, 'up')}}><FontAwesomeIcon icon={faArrowUp} /></button>}
-            {inactive != 'down' &&  <button className={cl.btn} onClick={() => {moveCell(id, 'down')}}><FontAwesomeIcon icon={faArrowDown} /></button>}
-            <button className={cl.btn} onClick={() => {deleteCell(id)}}><FontAwesomeIcon icon={faMinus} /></button>
+            {inactive != 'up' &&    <button className={cl.btn} onClick={() => {moveEditor({id, direction:'up'})}}><FontAwesomeIcon icon={faArrowUp} /></button>}
+            {inactive != 'down' &&  <button className={cl.btn} onClick={() => {moveEditor({id, direction:'down'})}}><FontAwesomeIcon icon={faArrowDown} /></button>}
+            <button className={cl.btn} onClick={() => {deleteEditor(id)}}><FontAwesomeIcon icon={faTrash} /></button>
         </div>
      );
 }

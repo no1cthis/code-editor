@@ -25,7 +25,7 @@ const CodeCell:React.FC<CodeCellProps> = ({editor}) => {
 
   const code = useMergeCode(editor.id)
  
-  const { updateCell, bundling } = useAction()
+  const { updateEditor, bundling } = useAction()
 
   useEffect(()=>{
     if(!bundle){
@@ -44,7 +44,7 @@ const CodeCell:React.FC<CodeCellProps> = ({editor}) => {
             <ResizableBox  height={600} axis='y' minConstraints={[0,200]} maxConstraints={[0, window.innerHeight * 0.9]}>
               <Split initialPrimarySize='60%'>
                   <div style={{width: '100%', height:'100%'}}>
-                      <CodeEditor initialValue={editor.content} onChange={(value) => updateCell(editor.id, value)}/>      
+                      <CodeEditor initialValue={editor.content} onChange={(value) => updateEditor({id: editor.id, content: value})}/>      
                   </div>
 
                   {
