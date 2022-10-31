@@ -16,22 +16,22 @@ const initText: Editor = {
   id: "initText",
   type: "text",
   content: `
-    ## This is my code-editor-app
+## This is my code-editor-app
 
-    **Use func show(component) to display your code in the preview window.**
-    
-    You can hover under the editor to add a new one there.
-    
-    - Click text to edit
-    - To change order or delete the editor use buttons on top right corner of the editor
-    - Can export and import
-    - Every editor resizable
-    - You can coding exactly like in VS Code. Imports working via unpkg.com
-    - Formatting working via Prettier
-    
-    Code editor it's MonacoEditor,  Text editor - MDEditor
-    
-    App coded on Typescript + Redux           
+**Use func show(component) to display your code in the preview window.**
+
+You can hover under the editor to add a new one there.
+
+- Click text to edit
+- To change order or delete the editor use buttons on top right corner of the editor
+- Can export and import
+- Every editor resizable
+- You can coding exactly like in VS Code. Imports working via unpkg.com
+- Formatting working via Prettier
+
+Code editor it's MonacoEditor,  Text editor - MDEditor
+
+App coded on Typescript + Redux           
 `,
 };
 const initText2: Editor = {
